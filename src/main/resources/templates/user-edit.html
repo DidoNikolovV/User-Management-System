@@ -7,27 +7,48 @@
 <div class="container mt-5">
   <h2>Edit User</h2>
   <form id="editForm" th:object="${user}" th:action="@{'/users/edit/' + user.id}" method="post">
-    <input type="hidden" th:field="*{id}" class="input-hidden"/>
-    <label for="firstName">First Name:</label>
-    <input id="firstName" type="text" th:field="*{firstName}" />
-    <br/>
-    <label for="lastName">Last Name:</label>
-    <input id="lastName" type="text" th:field="*{lastName}" />
-    <br/>
-    <label for="dateOfBirth">Last Name:</label>
-    <input id="dateOfBirth" type="text" th:field="*{dateOfBirth}" />
-    <br/>
-    <label for="phoneNumber">Last Name:</label>
-    <input id="phoneNumber" type="text" th:field="*{phoneNumber}" />
-    <br/>
-    <label for="email">Last Name:</label>
-    <input id="email" type="text" th:field="*{email}" />
-    <br/>
-    <br/>
-    <button type="submit" id="editUser">Update User</button>
-    <span class="ml-auto"><a class="btn btn-info" href="/">Dashboard</a></span>
+
+    <!-- Hidden input for user id -->
+    <input type="hidden" th:field="*{id}" class="form-control"/>
+
+    <!-- First Name -->
+    <div class="form-group">
+      <label for="firstName">First Name:</label>
+      <input id="firstName" type="text" th:field="*{firstName}" class="form-control"/>
+    </div>
+
+    <!-- Last Name -->
+    <div class="form-group">
+      <label for="lastName">Last Name:</label>
+      <input id="lastName" type="text" th:field="*{lastName}" class="form-control"/>
+    </div>
+
+    <!-- Date of Birth -->
+    <div class="form-group">
+      <label for="dateOfBirth">Date of Birth:</label>
+      <input id="dateOfBirth" type="text" th:field="*{dateOfBirth}" class="form-control"/>
+    </div>
+
+    <!-- Phone Number -->
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number:</label>
+      <input id="phoneNumber" type="text" th:field="*{phoneNumber}" class="form-control"/>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input id="email" type="text" th:field="*{email}" class="form-control"/>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="btn btn-primary">Update User</button>
+
+    <!-- Dashboard Link -->
+    <a class="btn btn-info float-right" href="/">Dashboard</a>
   </form>
 </div>
+
 
 <script>
   const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content

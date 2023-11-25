@@ -4,6 +4,8 @@ package com.example.usermanagementsystem.web;
 import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
