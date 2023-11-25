@@ -11,6 +11,17 @@ Welcome to the User Management REST API project! This API provides a versatile C
 - **JavaScript**
 
 ## Getting Started
+### Main Page
+![main-page](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/37e8edaf-304d-4423-9fa1-03f8aab23bbd)
+
+### Main Page With Search Param
+![main-page-search](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/b31e3b21-3b14-4593-8f00-2ce7210c2257)
+
+### Edit User Page
+![edit-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/f3c4b440-feba-4348-89d8-a2f54b156397)
+
+### Create User Page
+![create-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/d6740a40-19c4-4feb-aa83-f343325b13a6)
 
 ### Prerequisites
 
