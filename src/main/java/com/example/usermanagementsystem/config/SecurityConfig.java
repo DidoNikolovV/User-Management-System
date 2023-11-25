@@ -1,4 +1,4 @@
-package config;
+package com.example.usermanagementsystem.config;
 
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
