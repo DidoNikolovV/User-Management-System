@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head}">
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Edit User</h2>
+  <form id="editForm" th:object="${user}" th:action="@{'/users/edit/' + user.id}" method="post">
+    <input type="hidden" th:field="*{id}" class="input-hidden"/>
+    <label for="firstName">First Name:</label>
+    <input id="firstName" type="text" th:field="*{firstName}" />
+    <br/>
+    <label for="lastName">Last Name:</label>
+    <input id="lastName" type="text" th:field="*{lastName}" />
+    <br/>
+    <label for="dateOfBirth">Last Name:</label>
+    <input id="dateOfBirth" type="text" th:field="*{dateOfBirth}" />
+    <br/>
+    <label for="phoneNumber">Last Name:</label>
+    <input id="phoneNumber" type="text" th:field="*{phoneNumber}" />
+    <br/>
+    <label for="email">Last Name:</label>
+    <input id="email" type="text" th:field="*{email}" />
+    <br/>
+    <br/>
+    <button type="submit" id="editUser">Update User</button>
+    <span class="ml-auto"><a class="btn btn-info" href="/">Dashboard</a></span>
+  </form>
+</div>
+
+<script>
+  const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
+  const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
+  const editForm = document.getElementById('editForm');
+  const userIdInput = document.getElementById('id');
+
+  editForm.addEventListener('submit', updateUser)
+
+  async function updateUser(e) {
+    e.preventDefault();
+
+    const userId = userIdInput.value;
+    const formData = new FormData(editForm);
+    console.log(userId)
+    fetch(`http://localhost:8080/api/users/edit/${userId}`, {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        [csrfHeaderName]: csrfHeaderValue
+      },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    }).then(res => {
+      if(!res.ok) {
+        throw new Error('Failed to update user');
+      }
+        return res.json();
+      }).then(data => {
+        console.log('User updated successfully:', data);
+    }).catch(error => {
+      console.error('Error updating user:', error);
+    });
+  }
+</script>
+</body>
+</html>
