@@ -1,6 +1,6 @@
 # User Management REST API
 
-Welcome to the User Management REST API project! This API provides a versatile CRUD (Create, Read, Update, Delete) interface for managing user data through standard HTTP methods. Whether you're building an employee management system, a customer database, or any application requiring user-related functionalities, this project offers a robust and flexible solution.
+User Management REST API project! This API provides a versatile CRUD (Create, Read, Update, Delete) interface for managing user data through standard HTTP methods.
 
 ## Technologies Used
 - **Java**
@@ -12,16 +12,57 @@ Welcome to the User Management REST API project! This API provides a versatile C
 
 ## Getting Started
 ### Main Page
-![main-page](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/37e8edaf-304d-4423-9fa1-03f8aab23bbd)
+![main-page](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/ab3c6b7b-89fa-49d8-9ca9-91d4bda65ea8)
 
 ### Main Page With Search Param
-![main-page-search](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/b31e3b21-3b14-4593-8f00-2ce7210c2257)
+![main-page-search](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/bebf7e62-431b-47ad-9f0d-2d68aa5c8447)
 
 ### Edit User Page
-![edit-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/f3c4b440-feba-4348-89d8-a2f54b156397)
+![edit-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/d890a456-09ee-45ec-a25b-ec86271e8bb7)
 
 ### Create User Page
-![create-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/d6740a40-19c4-4feb-aa83-f343325b13a6)
+![create-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/1147ab20-e98c-4a05-8132-fd18b3c34eae)
+
+# User Management API
+
+## Get Users
+
+### Endpoint
+   ```http
+   GET /api/users
+   ```
+
+## Get User By ID
+
+### Endpoint
+
+   ```http
+   GET /api/users/{userId}
+   ```
+
+## Create User
+
+### Endpoint
+
+   ```http
+   POST /api/users
+   ```
+
+## Edit User
+
+### Endpoint
+   
+   ```http
+   PUT /api/users/edit/{userId}
+```
+
+## Delete User
+
+### Endpoint
+   
+   ```http
+   DELETE /api/users/{userId}
+   ```
 
 ### Prerequisites
 
