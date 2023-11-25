@@ -31,6 +31,21 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    ```http
    GET /api/users
    ```
+   ### Example Response:
+   ```json
+   [
+     {
+       "userId": 1,
+       "firstName": "Dido",
+       "lastName": "Nikolov",
+       "dateOfBirth": "2023-11-25",
+       "phoneNumber": "0896201921",
+       "email": "dido@gmail.com"
+     },
+      // Additional user objects...
+   ]
+   ```
+
 
 ## Get User By ID
 
@@ -38,6 +53,17 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
 
    ```http
    GET /api/users/{userId}
+   ```
+### Example Response:
+   ```json
+   {
+      "id":2,
+      "firstName":"Pesho",
+      "lastName":"Ivanov",
+      "dateOfBirth":"2023-11-25",
+      "phoneNumber":"0884201973",
+      "email":"pesho@abv.bg"
+   }
    ```
 
 ## Create User
@@ -47,6 +73,17 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    ```http
    POST /api/users
    ```
+### Example Response:
+   ```json
+   {
+      "id":3,
+      "firstName":"test",
+      "lastName":"test",
+      "dateOfBirth":"2019-09-25",
+      "phoneNumber":"088123321",
+      "email":"test@abv.bg"
+   }
+   ```
 
 ## Edit User
 
@@ -54,7 +91,18 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    
    ```http
    PUT /api/users/edit/{userId}
-```
+   ```
+### Example Response:
+   ```json
+   {
+      "id":1,
+      "firstName":"DidoUpdated",
+      "lastName":"Nikolov",
+      "dateOfBirth":"2019-09-25",
+      "phoneNumber":"0896201921",
+      "email":"dido@abv.bg"
+   }
+   ```
 
 ## Delete User
 
@@ -62,6 +110,18 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    
    ```http
    DELETE /api/users/{userId}
+   ```
+
+### Example Response:
+   ```json
+      {
+      "id":3,
+      "firstName":"test",
+      "lastName":"test",
+      "dateOfBirth":"2019-09-25",
+      "phoneNumber":"088123321",
+      "email":"test@abv.bg"
+   }
    ```
 
 ### Prerequisites
