@@ -31,15 +31,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/api/users/**").permitAll()
                                 .anyRequest().permitAll()
 
-                ).formLogin(
-                        formLogin -> {
-                            formLogin
-                                    .loginPage("/login")
-                                    .successForwardUrl("/")
-                                    .failureForwardUrl("/login-error");
-                        }
-                )
-                .build();
+                ).build();
 
     }
 
