@@ -30,7 +30,25 @@
     <tbody id="usersContainer">
 
     </tbody>
+
   </table>
+
+  <!-- Assuming you have a Page<UserDTO> named 'allUsers' in your model -->
+
+  <div th:if="${allUsers.totalPages > 1}" class="mt-3">
+    <ul class="pagination justify-content-center">
+      <li th:if="${allUsers.number > 0}" class="page-item">
+        <a th:href="@{'/api/users?page=' + (allUsers.number - 1) + '&size=' + allUsers.size}" class="page-link" id="prev">&lt; Prev</a>
+      </li>
+      <li th:each="page : ${#numbers.sequence(0, allUsers.totalPages - 1)}" th:class="${page} == ${allUsers.number} ? 'page-item active' : 'page-item'">
+        <a th:href="@{'/api/users?page=' + ${page} + '&size=' + ${allUsers.size}}" class="page-link" th:text="${page}"></a>
+      </li>
+      <li th:if="${allUsers.number + 1 < allUsers.totalPages}" class="page-item">
+        <a th:href="@{'/api/users?page=' + (${allUsers.number + 1}) + '&size=' + ${allUsers.size}}" class="page-link" id="next">Next &gt;</a>
+      </li>
+    </ul>
+  </div>
+
 
 
 </div>

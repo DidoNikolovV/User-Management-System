@@ -4,7 +4,9 @@ import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.repository.UserRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,19 +41,22 @@ public class UserService {
         return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User with " + id + " not found"));
     }
 
-    public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream().map(userEntity -> new UserDTO(
+    public Page<UserDTO> getAllUsers(Pageable pageable) {
+
+        Page<UserDTO> users = userRepository.findAll(pageable).map(userEntity -> new UserDTO(
                 userEntity.getId(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
                 userEntity.getDateOfBirth(),
                 userEntity.getPhoneNumber(),
                 userEntity.getEmail()
-        )).collect(Collectors.toList());
+        ));
+
+        return users;
     }
 
-    public List<UserDTO> searchUsers(String searchParam) {
-        return userRepository.searchUsers(searchParam).stream().map(this::mapAsUserDTO).collect(Collectors.toList());
+    public Page<UserDTO> searchUsers(String searchParam, Pageable pageable) {
+        return userRepository.searchUsers(searchParam, pageable).map(this::mapAsUserDTO);
     }
 
 

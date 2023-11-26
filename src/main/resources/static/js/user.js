@@ -1,5 +1,7 @@
 const usersCtr = document.getElementById('usersContainer');
 const searchForm = document.getElementById("searchForm");
+const nextBtn = document.getElementById("next");
+
 searchForm.addEventListener('submit',  (e) => {
     e.preventDefault();
 
@@ -8,6 +10,8 @@ searchForm.addEventListener('submit',  (e) => {
 
     loadUsers(searchParam);
 })
+
+nextBtn.addEventListener("click", loadUsers);
 
 
 const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
@@ -65,18 +69,20 @@ async function updateUser() {
     });
 }
 
-async function loadUsers(searchParam = '') {
+async function loadUsers(searchParam = '', page = 0, size = 3) {
 
     const queryParams = searchParam ? `?searchParam=${encodeURIComponent(searchParam)}` : '';
+    const pageParam = searchParam ? `&page=${encodeURIComponent(page)}` : `?page=${encodeURIComponent(page)}`;
+    const sizeParam = `&size=${encodeURIComponent(size)}`;
 
-    fetch(`http://localhost:8080/api/users${queryParams}`, {
+
+    fetch(`http://localhost:8080/api/users${queryParams}${pageParam}${sizeParam}`, {
         headers: {
             "Accept": "application/json"
         }
     }).then(res => res.json())
         .then(data => {
             for(let user of data) {
-                console.log("In GET REQUEST")
                 usersCtr.innerHTML += usersAsHTML(user)
             }
         }).catch(error => {
@@ -99,3 +105,5 @@ loadUsers();
 //     }).catch(error => {
 //     console.error('Error fetching users: ', error);
 // })
+
+

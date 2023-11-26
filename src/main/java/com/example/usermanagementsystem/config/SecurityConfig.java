@@ -3,10 +3,8 @@ package com.example.usermanagementsystem.config;
 
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -31,9 +29,15 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST,"/api/users").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/api/users/edit/**").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/api/users/**").permitAll()
-                                // all other requests are authenticated
                                 .anyRequest().permitAll()
 
+                ).formLogin(
+                        formLogin -> {
+                            formLogin
+                                    .loginPage("/login")
+                                    .successForwardUrl("/")
+                                    .failureForwardUrl("/login-error");
+                        }
                 )
                 .build();
 

@@ -9,11 +9,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class UserController {
@@ -25,12 +22,16 @@ public class UserController {
 
 
     @GetMapping("/")
-    public String dashBoard(Model model) {
-        List<UserDTO> allUsers = userService.getAllUsers();
+    public String dashBoard(Model model,
+                            @PageableDefault(size = 3, sort = {"lastName", "dateOfBirth"}) Pageable pageable) {
+        Page<UserDTO> allUsers = userService.getAllUsers(pageable);
+
 
         model.addAttribute("allUsers", allUsers);
         return "index";
     }
+
+
 
     @GetMapping("/users/create")
     public String userCreate() {

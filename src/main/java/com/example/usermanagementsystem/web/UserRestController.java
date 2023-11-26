@@ -6,6 +6,7 @@ import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -24,16 +25,18 @@ public class UserRestController {
     }
 
     @GetMapping("/api/users")
-    public ResponseEntity<List<UserDTO>> getUsers(@RequestParam(required = false) String searchParam) {
-        List<UserDTO> users;
+    public ResponseEntity<List<UserDTO>> getUsers(@RequestParam(required = false) String searchParam,
+                                @PageableDefault(size = 3, sort = {"lastName", "dateOfBirth"}) Pageable pageable) {
+        Page<UserDTO> users;
         if(searchParam != null && !searchParam.isEmpty()) {
-            users = userService.searchUsers(searchParam);
+            users = userService.searchUsers(searchParam, pageable);
         } else {
-            users = userService.getAllUsers();
+            users = userService.getAllUsers(pageable);
+
         }
 
 
-        return ResponseEntity.ok(users);
+        return ResponseEntity.ok(users.getContent());
     }
 
 
