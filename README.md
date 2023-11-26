@@ -31,6 +31,9 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    ```http
    GET /api/users
    ```
+   ### Example Request:
+   GET /api/users
+    
    ### Example Response:
    ```json
    [
@@ -53,6 +56,10 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
 
    ```http
    GET /api/users/{userId}
+   ```
+### Example Request:
+   ```http
+   GET /api/users/2
    ```
 ### Example Response:
    ```json
@@ -98,6 +105,19 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    ```http
    POST /api/users
    ```
+### Example Request:
+   ```http
+   POST /api/users
+   ```
+   ```json
+   {
+      "firstName":"test",
+      "lastName":"test",
+      "dateOfBirth":"2019-09-25",
+      "phoneNumber":"088123321",
+      "email":"test@abv.bg"
+   }
+   ```
 ### Example Response:
    ```json
    {
@@ -116,6 +136,19 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    
    ```http
    PUT /api/users/edit/{userId}
+   ```
+### Example Request:
+   ```http
+   PUT /api/users/edit/1
+   ```
+   ```json
+      {
+        "firstName": "DidoUpdated",
+        "lastName": "Nikolov",
+        "dateOfBirth":"2019-09-25",
+        "phoneNumber":"0896201921",
+          "email":"dido@abv.bg"
+      }
    ```
 ### Example Response:
    ```json
@@ -136,16 +169,31 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    ```http
    DELETE /api/users/{userId}
    ```
+### Example Request:
+   ```http
+   GET /api/users/2
+   ```
+### Example Response:
+   ```json
+   {
+      "id":2,
+      "firstName":"Pesho",
+      "lastName":"Ivanov",
+      "dateOfBirth":"2023-11-25",
+      "phoneNumber":"0884201973",
+      "email":"pesho@abv.bg"
+   }
+   ```
 
 ### Example Response:
    ```json
-      {
-      "id":3,
-      "firstName":"test",
-      "lastName":"test",
-      "dateOfBirth":"2019-09-25",
-      "phoneNumber":"088123321",
-      "email":"test@abv.bg"
+   {
+      "id":2,
+      "firstName":"Pesho",
+      "lastName":"Ivanov",
+      "dateOfBirth":"2023-11-25",
+      "phoneNumber":"0884201973",
+      "email":"pesho@abv.bg"
    }
    ```
 
