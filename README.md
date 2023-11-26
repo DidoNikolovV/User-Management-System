@@ -12,10 +12,10 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
 
 ## Getting Started
 ### Main Page
-![main-page](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/ab3c6b7b-89fa-49d8-9ca9-91d4bda65ea8)
+![main-page](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/db1f3be9-9553-41f0-a044-502fe6f61982)
 
 ### Main Page With Search Param
-![main-page-search](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/bebf7e62-431b-47ad-9f0d-2d68aa5c8447)
+![main-page-search](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/6b87ddc4-eeb8-4b72-bf26-f2f0c0f2a6e6)
 
 ### Edit User Page
 ![edit-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/d890a456-09ee-45ec-a25b-ec86271e8bb7)
