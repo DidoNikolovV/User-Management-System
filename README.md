@@ -66,6 +66,31 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
    }
    ```
 
+## Get Users with Pagination
+
+### Endpoint
+   ```http
+   GET /api/users
+   ```
+### Example Request:
+   ```http
+   GET /api/users?page=1&size=3
+   ```
+
+### Example Response:
+  ```json
+      [
+         {
+            "id":1,
+            "firstName":"Dido",
+            "lastName":"Nikolov",
+            "dateOfBirth":"2023-11-25",
+            "phoneNumber":"0896201921",
+            "email":"dido@gmail.com"
+         }
+      ]
+   ```
+
 ## Create User
 
 ### Endpoint
