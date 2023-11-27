@@ -1,9 +1,7 @@
 package com.example.usermanagementsystem.config;
 
-
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
-
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,25 +10,38 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+
 @EnableWebSecurity
 public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         // Configuration goes here
-        return httpSecurity
+         return httpSecurity
                 .authorizeHttpRequests(
+                // Define which urls are visible by which users
+                authorizeRequests -> authorizeRequests
                         // Define which urls are visible by which users
-                        authorizeRequests -> authorizeRequests
                                 // All static resources are situated in js, images, css are available for anyone
-                                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                                .requestMatchers("/users").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
-                                .requestMatchers(HttpMethod.POST,"/api/users").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/api/users/edit/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/api/users/**").permitAll()
-                                .anyRequest().permitAll()
-
+                            .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                            .requestMatchers("/users").permitAll()
+                            .requestMatchers(
+                                    "/api/v1/auth/**",
+                                    "/v2/api-docs",
+                                    "/v3/api-docs",
+                                    "/v3/api-docs/**",
+                                    "/swagger-resources",
+                                    "/swagger-resources/**",
+                                    "/configuration/ui",
+                                    "/configuration/security",
+                                    "/swagger-ui/**",
+                                    "/swagger-ui.html"
+                            ).permitAll()
+                            .requestMatchers(HttpMethod.GET, "/api/users/**").permitAll()
+                            .requestMatchers(HttpMethod.POST,"/api/users").permitAll()
+                            .requestMatchers(HttpMethod.PUT, "/api/users/edit/**").permitAll()
+                            .requestMatchers(HttpMethod.DELETE, "/api/users/**").permitAll()
+                            .anyRequest().authenticated()
                 ).build();
 
     }
@@ -45,5 +56,6 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
+
 
 }

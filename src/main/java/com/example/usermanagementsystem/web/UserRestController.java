@@ -5,12 +5,15 @@ import com.example.usermanagementsystem.exception.UserNotFoundException;
 import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +53,7 @@ public class UserRestController {
     }
 
 
-    @PostMapping(value = "/api/users", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/api/users")
     public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
         UserEntity user = userService.createUser(userDTO);
         return ResponseEntity.created(

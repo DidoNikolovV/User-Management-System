@@ -5,13 +5,8 @@ import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.repository.UserRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService {

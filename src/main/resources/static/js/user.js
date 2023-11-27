@@ -1,7 +1,6 @@
 const usersCtr = document.getElementById('usersContainer');
 const searchForm = document.getElementById("searchForm");
 
-const nextBtn = document.getElementById("next");
 
 const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
 const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
@@ -15,7 +14,7 @@ searchForm.addEventListener('submit',  (e) => {
     loadUsers(searchParam);
 })
 
-nextBtn.addEventListener("click", loadUsers);
+
 
 
 async function loadUsers(searchParam = '', page = 0, size = 3) {
@@ -40,8 +39,6 @@ async function loadUsers(searchParam = '', page = 0, size = 3) {
 }
 
 loadUsers();
-
-
 
 
 async function deleteUser(userId) {
