@@ -68,6 +68,7 @@ function usersAsHTML(user) {
     userHTML += `<td>${user.email}</td>\n`
     userHTML += `<td><a href="/users/edit/${user.id}" class="btn btn-info">Edit</a></td>\n`
     userHTML += `<td><button onclick="deleteUser(${user.id})" class="btn btn-danger">Delete</button></td>\n`
+    userHTML += `<td><a href="/users/${user.id}" class="btn btn-info">Details</a></td>\n`
     userHTML += '</tr>\n';
 
     return userHTML;
