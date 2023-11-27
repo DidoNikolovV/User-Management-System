@@ -213,8 +213,8 @@ Ensure you have the following prerequisites installed on your system:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/DidoNikolovV/user-management-rest-api.git
-   cd user-management-rest-api
+   git clone https://github.com/DidoNikolovV/User-Management-System.git
+   cd User-Management-System.git
 
 2. **Build Project**
    ```bash
