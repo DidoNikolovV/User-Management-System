@@ -214,21 +214,8 @@ Ensure you have the following prerequisites installed on your system:
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/DidoNikolovV/User-Management-System.git
-   cd User-Management-System.git
 
-2. **Build Project**
-   ```bash
-    ./gradlew clean build
-3. **Run the application**
-   ```bash
-   ./gradlew bootRun
-
-Spring Security User Credentials
-
-The default credentials for accessing the API are as follows:
-
-    Username: admin
-    Password: 12345
+2. **Open the Project with InteliJ**
 
 MySQL Database Connection
    1. **Install MySQL:**
@@ -254,10 +241,18 @@ MySQL Database Connection
         Update url, username, and password as needed.
 
     Save the changes.
+   
 
-The API will start running at http://localhost:8080. You can now explore the endpoints using your preferred API client or tools like Postman.
+3. **Run the application**
+
+The API will start running at http://localhost:8080. 
+The default credentials for accessing the API are as follows:
+
+    Username: admin
+    Password: 12345
+    You can now explore the endpoints using your preferred API client.
+    
 Dependencies
-
     Spring Boot: Simplifies the development of production-ready Spring applications.
     Spring Data JPA: Simplifies data access using the Java Persistence API (JPA).
     MySQL: In-memory database for development and testing.
