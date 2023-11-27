@@ -1,5 +1,6 @@
 package com.example.usermanagementsystem.web;
 
+import com.example.usermanagementsystem.exception.UserNotFoundException;
 import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.service.UserService;
@@ -39,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/users/edit/{userId}")
-    public String userEdit(@PathVariable("userId") Long userId, Model model) {
+    public String userEdit(@PathVariable("userId") Long userId, Model model) throws UserNotFoundException {
         UserEntity userEntity = userService.getUserById(userId);
         UserDTO userDTO = mapToUserDTO(userEntity);
         model.addAttribute("user", userDTO);

@@ -8,81 +8,79 @@
   <h2>Edit User</h2>
   <form id="editForm" th:object="${user}" th:action="@{'/users/edit/' + user.id}" method="post">
 
-    <!-- Hidden input for user id -->
+
     <input type="hidden" th:field="*{id}" class="form-control"/>
 
-    <!-- First Name -->
+
     <div class="form-group">
       <label for="firstName">First Name:</label>
       <input id="firstName" type="text" th:field="*{firstName}" class="form-control"/>
     </div>
 
-    <!-- Last Name -->
+
     <div class="form-group">
       <label for="lastName">Last Name:</label>
       <input id="lastName" type="text" th:field="*{lastName}" class="form-control"/>
     </div>
 
-    <!-- Date of Birth -->
+
     <div class="form-group">
       <label for="dateOfBirth">Date of Birth:</label>
       <input id="dateOfBirth" type="text" th:field="*{dateOfBirth}" class="form-control"/>
     </div>
 
-    <!-- Phone Number -->
+
     <div class="form-group">
       <label for="phoneNumber">Phone Number:</label>
       <input id="phoneNumber" type="text" th:field="*{phoneNumber}" class="form-control"/>
     </div>
 
-    <!-- Email -->
+
     <div class="form-group">
       <label for="email">Email:</label>
       <input id="email" type="text" th:field="*{email}" class="form-control"/>
     </div>
 
-    <!-- Submit Button -->
     <button type="submit" class="btn btn-primary">Update User</button>
 
-    <!-- Dashboard Link -->
     <a class="btn btn-info float-right" href="/">Dashboard</a>
   </form>
 </div>
 
 
-<script>
-  const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
-  const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
-  const editForm = document.getElementById('editForm');
-  const userIdInput = document.getElementById('id');
+  <script>
+    const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
+    const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
 
-  editForm.addEventListener('submit', updateUser)
+    const editForm = document.getElementById('editForm');
+    const userIdInput = document.getElementById('id');
+    editForm.addEventListener('submit', updateUser)
 
-  async function updateUser(e) {
-    e.preventDefault();
+    async function updateUser(e) {
+      e.preventDefault();
 
-    const userId = userIdInput.value;
-    const formData = new FormData(editForm);
-    console.log(userId)
-    fetch(`http://localhost:8080/api/users/edit/${userId}`, {
-      method: 'PUT',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        [csrfHeaderName]: csrfHeaderValue
-      },
-      body: JSON.stringify(Object.fromEntries(formData)),
-    }).then(res => {
-      if(!res.ok) {
-        throw new Error('Failed to update user');
-      }
+      const userId = userIdInput.value;
+      const formData = new FormData(editForm);
+      console.log(userId)
+      fetch(`http://localhost:8080/api/users/edit/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          [csrfHeaderName]: csrfHeaderValue
+        },
+        body: JSON.stringify(Object.fromEntries(formData)),
+      }).then(res => {
+        if(!res.ok) {
+          throw new Error('Failed to update user');
+        }
         return res.json();
       }).then(data => {
         console.log('User updated successfully:', data);
-    }).catch(error => {
-      console.error('Error updating user:', error);
-    });
-  }
-</script>
+      }).catch(error => {
+        console.error('Error updating user:', error);
+      });
+    }
+  </script>
 </body>
 </html>

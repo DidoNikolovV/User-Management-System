@@ -1,5 +1,6 @@
 package com.example.usermanagementsystem.service;
 
+import com.example.usermanagementsystem.exception.UserNotFoundException;
 import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.repository.UserRepository;
@@ -37,8 +38,8 @@ public class UserService {
         return user;
     }
 
-    public UserEntity getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User with " + id + " not found"));
+    public UserEntity getUserById(Long id) throws UserNotFoundException {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
     }
 
     public Page<UserDTO> getAllUsers(Pageable pageable) {

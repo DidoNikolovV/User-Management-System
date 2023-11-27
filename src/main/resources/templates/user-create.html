@@ -9,7 +9,6 @@
         <h2>Create User</h2>
         <form id="userForm" method="POST" action="/">
 
-            <!-- First Name and Last Name in a single row -->
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="firstName">First Name</label>
@@ -21,7 +20,7 @@
                 </div>
             </div>
 
-            <!-- Date of Birth and Phone Number in a single row -->
+
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="dateOfBirth">Date of Birth</label>
@@ -33,70 +32,57 @@
                 </div>
             </div>
 
-            <!-- Email Address -->
+
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" class="form-control" id="email" placeholder="Enter Email Address" required>
             </div>
 
-            <!-- Submit Button -->
+
             <button type="submit" class="btn btn-primary">Create User</button>
 
-            <!-- Dashboard Link -->
             <a class="btn btn-info float-right" href="/">Dashboard</a>
         </form>
     </div>
 
 
 <script>
-        const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
-        const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
-        const userForm = document.getElementById('userForm');
-        userForm.addEventListener('submit', createUser);
+    const csrfHeaderName = document.head.querySelector('[name=_csrf_header]').content
+    const csrfHeaderValue = document.head.querySelector('[name=_csrf]').content
 
-        async function createUser(e) {
-            e.preventDefault();
+    const userForm = document.getElementById("userForm");
+    userForm.addEventListener('submit', createUser);
 
-            const firstNameElement = document.getElementById('firstName').value;
-            const lastNameElement = document.getElementById('lastName').value;
-            const dateOfBirthElement = document.getElementById('dateOfBirth').value;
-            const phoneNumberElement = document.getElementById('phoneNumber').value;
-            const emailElement = document.getElementById('email').value;
+    async function createUser(e) {
+        e.preventDefault();
+
+        const firstNameElement = document.getElementById('firstName').value;
+        const lastNameElement = document.getElementById('lastName').value;
+        const dateOfBirthElement = document.getElementById('dateOfBirth').value;
+        const phoneNumberElement = document.getElementById('phoneNumber').value;
+        const emailElement = document.getElementById('email').value;
 
 
-            fetch("http://localhost:8080/api/users", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                    [csrfHeaderName]: csrfHeaderValue
-                },
-                body: JSON.stringify({
-                    firstName: firstNameElement,
-                    lastName: lastNameElement,
-                    dateOfBirth: dateOfBirthElement,
-                    phoneNumber: phoneNumberElement,
-                    email: emailElement,
-                })
-            }).then(res => res.json())
-                .then(data => {
-                    console.log(data);
-                })
-        }
+        fetch("http://localhost:8080/api/users", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                [csrfHeaderName]: csrfHeaderValue
+            },
+            body: JSON.stringify({
+                firstName: firstNameElement,
+                lastName: lastNameElement,
+                dateOfBirth: dateOfBirthElement,
+                phoneNumber: phoneNumberElement,
+                email: emailElement,
+            })
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+    }
 
-        function usersAsHTML(user) {
-            let userHTML = `<tr`
-            userHTML += `<td>${user.firstName}</td>\n`
-            userHTML += `<td>${user.lastName}</td>\n`
-            userHTML += `<td>${user.dateOfBirth}</td>\n`
-            userHTML += `<td>${user.phoneNumber}</td>\n`
-            userHTML += `<td id="email">${user.email}</td>\n`
-            userHTML += `<td><button class="btn btn-info">Edit</button></td>\n`
-            userHTML += `<td><button class="btn btn-danger">Delete</button></td>\n`
-            userHTML += '</tr>\n';
-
-            return userHTML;
-        }
 </script>
 </body>
 </html>

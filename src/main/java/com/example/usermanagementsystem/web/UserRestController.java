@@ -1,15 +1,18 @@
 package com.example.usermanagementsystem.web;
 
 
+import com.example.usermanagementsystem.exception.UserNotFoundException;
 import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
 import com.example.usermanagementsystem.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -41,14 +44,14 @@ public class UserRestController {
 
 
     @GetMapping("/api/users/{userId}")
-    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") Long userId) {
+    public ResponseEntity<UserDTO> getUser(@PathVariable("userId") Long userId) throws UserNotFoundException {
         UserEntity userEntity = userService.getUserById(userId);
         return ResponseEntity.ok(mapToUserDTO(userEntity));
     }
 
 
     @PostMapping(value = "/api/users", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody @Valid UserDTO userDTO) {
         UserEntity user = userService.createUser(userDTO);
         return ResponseEntity.created(
                 URI.create("/users/" + user.getId())
@@ -57,7 +60,7 @@ public class UserRestController {
 
 
     @PutMapping("/api/users/edit/{userId}")
-    public ResponseEntity<UserDTO> editUser(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> editUser(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO) throws UserNotFoundException {
         UserEntity updatedUser = userService.getUserById(userId);
 
         updatedUser.setFirstName(userDTO.getFirstName());
