@@ -204,25 +204,24 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
 
 Ensure you have the following prerequisites installed on your system:
 - Java Development Kit (JDK)
-- Apache Maven
+   - This project requires Java 17.
+- Gradle
 - IDE: IntelliJ
+- MySQL
 
 ### Installation
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/user-management-rest-api.git
-   cd user-management-rest-api
-
+   git clone https://github.com/DidoNikolovV/User-Management-System.git
+   cd User-Management-System.git
 
 2. **Build Project**
    ```bash
-    mvn clean install
+    ./gradlew clean build
 3. **Run the application**
    ```bash
-   mvn spring-boot:run
-
-    mvn spring-boot:run
+   ./gradlew bootRun
 
 Spring Security User Credentials
 
@@ -232,8 +231,13 @@ The default credentials for accessing the API are as follows:
     Password: 12345
 
 MySQL Database Connection
-
-    Ensure you have MySQL installed on your machine.
+   1. **Install MySQL:**
+      Ensure you have MySQL installed on your machine. You can download MySQL from [here](https://dev.mysql.com/downloads/).
+   
+   2. **Create Database:**
+      Open your MySQL client (e.g., MySQL Workbench).
+   
+   ### Update Application Configuration
 
     Open the src/main/resources/application.yml file.
 
@@ -242,10 +246,10 @@ MySQL Database Connection
     yaml
 
     datasource:
-      driverClassName: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://localhost:3306/user-management-system?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
-      username: root
-      password:
+     driverClassName: com.mysql.cj.jdbc.Driver
+     url: jdbc:mysql://<your-database-host>:<your-database-port>/user-management-system?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+     username: <your-database-username>
+     password: <your-database-password>
 
         Update url, username, and password as needed.
 
