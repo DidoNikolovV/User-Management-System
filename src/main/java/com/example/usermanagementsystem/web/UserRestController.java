@@ -111,8 +111,7 @@ public class UserRestController {
                             content = @Content(
                                     mediaType = "application/json",
                                     examples = @ExampleObject(
-                                            value = "{ \"id\": 20," +
-                                                    " \"firstName\": \"Test\"," +
+                                            value = " \"firstName\": \"Test\"," +
                                                     " \"lastName\": \"Test\"," +
                                                     " \"dateOfBirth\": \"1990-01-01\"," +
                                                     " \"phoneNumber\": \"1339587787\"," +
