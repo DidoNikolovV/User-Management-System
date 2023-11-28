@@ -31,6 +31,7 @@ public class UserController {
         return "index";
     }
 
+
     @GetMapping("/users/{userId}")
     public String userDetails(Model model, @PathVariable("userId") Long userId) throws UserNotFoundException {
         UserDTO user = mapToUserDTO(userService.getUserById(userId));
