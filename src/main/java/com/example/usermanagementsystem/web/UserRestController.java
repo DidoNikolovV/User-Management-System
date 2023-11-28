@@ -49,7 +49,7 @@ public class UserRestController {
                     ),
                     @ApiResponse(
                             description = "Unauthorized",
-                            responseCode = "403"
+                            responseCode = "401"
                     )
             }
     )
@@ -85,7 +85,7 @@ public class UserRestController {
                     ),
                     @ApiResponse(
                             description = "Unauthorized",
-                            responseCode = "403"
+                            responseCode = "401"
                     ),
                     @ApiResponse(
                             description = "User not found",
@@ -103,7 +103,41 @@ public class UserRestController {
 
 
     @Operation(
-            description = "Create a user",
+            description = "Create user",
+            responses = {
+                    @ApiResponse(
+                            description = "Created",
+                            responseCode = "201",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    examples = @ExampleObject(
+                                            value = " \"firstName\": \"Test\"," +
+                                                    " \"lastName\": \"Test\"," +
+                                                    " \"dateOfBirth\": \"1990-01-01\"," +
+                                                    " \"phoneNumber\": \"1339587787\"," +
+                                                    " \"email\": \"test@example.com\" " +
+                                                    "}"
+                                    )
+                            )
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401"
+                    )
+            }
+    )
+    @PostMapping(value = "/api/users", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+        UserEntity user = userService.createUser(userDTO);
+        return ResponseEntity.created(
+                URI.create("/users/" + user.getId())
+        ).body(mapToUserDTO(user));
+    }
+
+
+
+    @Operation(
+            description = "Update user",
             responses = {
                     @ApiResponse(
                             description = "Success",
@@ -121,20 +155,15 @@ public class UserRestController {
                             )
                     ),
                     @ApiResponse(
-                            description = "Unauthorized",
+                            description = "Forbidden",
                             responseCode = "403"
+                    ),
+                    @ApiResponse(
+                            description = "Unauthorized",
+                            responseCode = "401"
                     )
             }
     )
-    @PostMapping(value = "/api/users", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
-        UserEntity user = userService.createUser(userDTO);
-        return ResponseEntity.created(
-                URI.create("/users/" + user.getId())
-        ).body(mapToUserDTO(user));
-    }
-
-
     @PutMapping("/api/users/edit/{userId}")
     public ResponseEntity<UserDTO> editUser(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO) throws UserNotFoundException {
         UserEntity updatedUser = userService.getUserById(userId);
@@ -151,6 +180,24 @@ public class UserRestController {
 
     }
 
+
+    @Operation(
+            description = "Delete user by identifier",
+            responses = {
+                    @ApiResponse(
+                            description = "Success",
+                            responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Forbidden",
+                            responseCode = "403"
+                    ),
+                    @ApiResponse(
+                            description = "User not found",
+                            responseCode = "404"
+                    )
+            }
+    )
     @DeleteMapping("/api/users/{userId}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable("userId") Long userId) {
         UserEntity userEntity = userService.deleteUserById(userId);
