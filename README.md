@@ -205,40 +205,27 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
 Ensure you have the following prerequisites installed on your system:
 - Java Development Kit (JDK)
    - This project requires Java 17.
-- Gradle
+- Gradle - 7.5 or higher
 - IDE: IntelliJ
 - MySQL
 
 ### Installation
 
-1. **Clone the repository:**
+# Clone the repository:**
    ```bash
    git clone https://github.com/DidoNikolovV/User-Management-System.git
-   cd User-Management-System.git
-
-2. **Build Project**
+   ```
+## Navigate to the project directory
    ```bash
-    ./gradlew clean build
-3. **Run the application**
+   cd User-Management-System
+   ```
+### Build and Run
+ 
+### Open InteliJ in the project directory
    ```bash
-   ./gradlew bootRun
-
-Spring Security User Credentials
-
-The default credentials for accessing the API are as follows:
-
-    Username: admin
-    Password: 12345
-
-MySQL Database Connection
-   1. **Install MySQL:**
-      Ensure you have MySQL installed on your machine. You can download MySQL from [here](https://dev.mysql.com/downloads/).
-   
-   2. **Create Database:**
-      Open your MySQL client (e.g., MySQL Workbench).
-   
-   ### Update Application Configuration
-
+     idea .
+   ```
+### **Update Application Configuration**
     Open the src/main/resources/application.yml file.
 
     Locate the following section and update the MySQL connection details according to your setup:
@@ -253,11 +240,17 @@ MySQL Database Connection
 
         Update url, username, and password as needed.
 
-    Save the changes.
+### **Run the application**
+    Go to the main class, right click and run it.
 
-The API will start running at http://localhost:8080. You can now explore the endpoints using your preferred API client or tools like Postman.
+The API will start running at http://localhost:8080. 
+The default credentials for accessing the API are as follows:
+
+    Username: admin
+    Password: 12345
+    You can now explore the endpoints using your preferred API client.
+    
 Dependencies
-
     Spring Boot: Simplifies the development of production-ready Spring applications.
     Spring Data JPA: Simplifies data access using the Java Persistence API (JPA).
     MySQL: In-memory database for development and testing.
