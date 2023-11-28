@@ -205,17 +205,31 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
 Ensure you have the following prerequisites installed on your system:
 - Java Development Kit (JDK)
    - This project requires Java 17.
-- Gradle
+- Gradle - 7.5 or higher
 - IDE: IntelliJ
 - MySQL
 
 ### Installation
 
-1. **Clone the repository:**
+# Clone the repository:**
    ```bash
    git clone https://github.com/DidoNikolovV/User-Management-System.git
-
-2. **Open the Project with InteliJ**
+   ```
+## Navigate to the project directory
+   ```bash
+   cd User-Management-System
+   ```
+### Build and Run
+### Windows
+ 
+### Build the project:
+   ```bash
+   gradlew.bat build --warning-mode all
+   ```
+### Run the Project
+   ```bash
+   gradlew.bat bootRun --warning-mode all
+   ```
 
 MySQL Database Connection
    1. **Install MySQL:**
