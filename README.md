@@ -221,7 +221,10 @@ Ensure you have the following prerequisites installed on your system:
    ```
 ### Build and Run
  
-### **Open InteliJ in the project directory**
+### Open InteliJ in the project directory
+   ```bash
+     idea .
+   ```
 ### **Update Application Configuration**
     Open the src/main/resources/application.yml file.
 
