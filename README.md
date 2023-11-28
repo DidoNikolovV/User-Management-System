@@ -26,6 +26,24 @@ User Management REST API project! This API provides a versatile CRUD (Create, Re
 ### Create User Page
 ![create-user](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/1147ab20-e98c-4a05-8132-fd18b3c34eae)
 
+Explore the API using the Swagger UI.
+
+Swagger UI: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
+
+![swagger](https://github.com/DidoNikolovV/User-Management-System/assets/53466577/3fc20cff-b923-4bdf-b8c8-d800b965bb4a)
+
+
+### Accessing Swagger UI
+
+Follow these steps to access the Swagger UI for exploring the API:
+
+1. Start your application.
+2. Open a web browser.
+3. Navigate to [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html).
+4. Explore available endpoints, request parameters, and responses interactively.
+
+
+
 # User Management API
 
 ## Get Users
