@@ -240,7 +240,8 @@ Ensure you have the following prerequisites installed on your system:
 
         Update url, username, and password as needed.
 
-3. **Run the application**
+### **Run the application**
+    Go to the main class, right click and run it.
 
 The API will start running at http://localhost:8080. 
 The default credentials for accessing the API are as follows:
