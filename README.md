@@ -220,26 +220,9 @@ Ensure you have the following prerequisites installed on your system:
    cd User-Management-System
    ```
 ### Build and Run
-### Windows
  
-### Build the project:
-   ```bash
-   gradlew.bat build --warning-mode all
-   ```
-### Run the Project
-   ```bash
-   gradlew.bat bootRun --warning-mode all
-   ```
-
-MySQL Database Connection
-   1. **Install MySQL:**
-      Ensure you have MySQL installed on your machine. You can download MySQL from [here](https://dev.mysql.com/downloads/).
-   
-   2. **Create Database:**
-      Open your MySQL client (e.g., MySQL Workbench).
-   
-   ### Update Application Configuration
-
+### **Open InteliJ in the project directory**
+### **Update Application Configuration**
     Open the src/main/resources/application.yml file.
 
     Locate the following section and update the MySQL connection details according to your setup:
@@ -253,9 +236,6 @@ MySQL Database Connection
      password: <your-database-password>
 
         Update url, username, and password as needed.
-
-    Save the changes.
-   
 
 3. **Run the application**
 
