@@ -23,6 +23,11 @@ public class UserService {
             throw new UserAlreadyRegisteredException("User with " + userDTO.getEmail() + " already exists");
         }
 
+        if(userRepository.findByPhoneNumber(userDTO.getPhoneNumber()).isPresent()) {
+            throw new UserAlreadyRegisteredException("User with " + userDTO.getPhoneNumber() + " already exists");
+        }
+
+
         UserEntity user = new UserEntity();
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -34,7 +39,7 @@ public class UserService {
         return user;
     }
 
-    public UserEntity getUserById(Long id) throws UserNotFoundException {
+    public UserEntity getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
     }
 
@@ -63,7 +68,7 @@ public class UserService {
     }
 
 
-    public UserEntity deleteUserById(Long id) throws UserNotFoundException {
+    public UserEntity deleteUserById(Long id)  {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
         userRepository.deleteById(user.getId());
 
