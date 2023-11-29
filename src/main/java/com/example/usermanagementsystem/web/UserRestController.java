@@ -1,6 +1,7 @@
 package com.example.usermanagementsystem.web;
 
 
+import com.example.usermanagementsystem.exception.UserAlreadyRegisteredException;
 import com.example.usermanagementsystem.exception.UserNotFoundException;
 import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
@@ -128,7 +129,7 @@ public class UserRestController {
             }
     )
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) throws UserAlreadyRegisteredException {
         UserEntity user = userService.createUser(userDTO);
 
         return ResponseEntity.created(
@@ -201,7 +202,7 @@ public class UserRestController {
             }
     )
     @DeleteMapping("/{userId}")
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable("userId") Long userId) {
+    public ResponseEntity<UserDTO> deleteUser(@PathVariable("userId") Long userId) throws UserNotFoundException {
         UserEntity userEntity = userService.deleteUserById(userId);
         return ResponseEntity.ok(mapToUserDTO(userEntity));
     }

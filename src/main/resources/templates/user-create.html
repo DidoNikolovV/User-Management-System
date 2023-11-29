@@ -79,11 +79,11 @@
             })
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
-                window.location.href = "/users/" + data.id;
+                if(data.success) {
+                    window.location.href = "/users/" + data.id;
+                }
             })
     }
-
 </script>
 </body>
 </html>

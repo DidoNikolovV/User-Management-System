@@ -1,5 +1,6 @@
 package com.example.usermanagementsystem.service;
 
+import com.example.usermanagementsystem.exception.UserAlreadyRegisteredException;
 import com.example.usermanagementsystem.exception.UserNotFoundException;
 import com.example.usermanagementsystem.model.dto.UserDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
@@ -19,7 +20,7 @@ public class UserService {
 
     public UserEntity createUser(UserDTO userDTO) {
         if(userRepository.findByEmail(userDTO.getEmail()).isPresent()) {
-            throw new IllegalArgumentException("User with " + userDTO.getEmail() + " already exists");
+            throw new UserAlreadyRegisteredException("User with " + userDTO.getEmail() + " already exists");
         }
 
         UserEntity user = new UserEntity();
@@ -57,12 +58,12 @@ public class UserService {
 
 
 
-    public void updateUser(UserEntity userEntity) {
+    public void updateUser(UserEntity userEntity) throws UserNotFoundException{
         userRepository.save(userEntity);
     }
 
 
-    public UserEntity deleteUserById(Long id) {
+    public UserEntity deleteUserById(Long id) throws UserNotFoundException {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
         userRepository.deleteById(user.getId());
 

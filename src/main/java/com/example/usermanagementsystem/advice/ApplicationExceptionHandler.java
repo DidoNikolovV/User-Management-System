@@ -1,5 +1,6 @@
 package com.example.usermanagementsystem.advice;
 
+import com.example.usermanagementsystem.exception.UserAlreadyRegisteredException;
 import com.example.usermanagementsystem.exception.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,12 +26,21 @@ public class ApplicationExceptionHandler {
         return errorsMap;
     }
 
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
     public Map<String, String> handleBusinessException(UserNotFoundException ex) {
         Map<String, String> errorsMap = new HashMap<>();
         errorsMap.put("errorMessage", ex.getMessage());
         return errorsMap;
-
     }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UserAlreadyRegisteredException.class)
+    public Map<String, String> handleUserRegisteredException(UserAlreadyRegisteredException ex) {
+        Map<String, String> errorsMap = new HashMap<>();
+        errorsMap.put("errorMessage", ex.getMessage());
+
+        return errorsMap;
+    }
+
 }
