@@ -63,7 +63,7 @@ public class UserService {
 
 
     public UserEntity deleteUserById(Long id) {
-        UserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
         userRepository.deleteById(user.getId());
 
         return user;

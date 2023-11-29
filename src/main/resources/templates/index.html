@@ -44,7 +44,7 @@
         <a th:href="@{'/api/users?page=' + ${page} + '&size=' + ${allUsers.size}}" class="page-link" th:text="${page}"></a>
       </li>
       <li th:if="${allUsers.number + 1 < allUsers.totalPages}" class="page-item">
-        <a th:href="@{'/api/users?page=' + (${allUsers.number + 1}) + '&size=' + ${allUsers.size}}" class="page-link" id="next">Next &gt;</a>
+        <a  th:href="@{'/api/users?page=' + (${allUsers.number + 1}) + '&size=' + ${allUsers.size}}" class="page-link" id="next">Next &gt;</a>
       </li>
     </ul>
   </div>

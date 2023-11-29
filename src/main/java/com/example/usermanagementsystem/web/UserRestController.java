@@ -32,6 +32,7 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 @RestController
 @SecurityRequirement(name="basicAuth")
+@RequestMapping("/api/users")
 public class UserRestController {
     private final UserService userService;
 
@@ -53,7 +54,7 @@ public class UserRestController {
                     )
             }
     )
-    @GetMapping("/api/users")
+    @GetMapping
     public ResponseEntity<List<UserDTO>> getUsers(
             @Parameter(description = "Search parameter")
             @RequestParam(required = false) String searchParam,
@@ -93,7 +94,7 @@ public class UserRestController {
                     )
             }
     )
-    @GetMapping("/api/users/{userId}")
+    @GetMapping("/{userId}")
     public ResponseEntity<UserDTO> getUser(
             @Parameter(description = "User Id", example = "4")
             @PathVariable("userId") Long userId) throws UserNotFoundException {
@@ -126,14 +127,15 @@ public class UserRestController {
                     )
             }
     )
-    @PostMapping(value = "/api/users", consumes = "application/json", produces = "application/json")
+    @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         UserEntity user = userService.createUser(userDTO);
+
         return ResponseEntity.created(
                 URI.create("/users/" + user.getId())
         ).body(mapToUserDTO(user));
-    }
 
+    }
 
 
     @Operation(
@@ -198,7 +200,7 @@ public class UserRestController {
                     )
             }
     )
-    @DeleteMapping("/api/users/{userId}")
+    @DeleteMapping("/{userId}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable("userId") Long userId) {
         UserEntity userEntity = userService.deleteUserById(userId);
         return ResponseEntity.ok(mapToUserDTO(userEntity));
@@ -215,3 +217,6 @@ public class UserRestController {
         );
     }
 }
+
+
+
