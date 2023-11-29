@@ -15,16 +15,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class ApplicationExceptionHandler {
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleInvalidArgument(MethodArgumentNotValidException ex) {
-        Map<String, String> errorsMap = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(err -> {
-            errorsMap.put(err.getField(), err.getDefaultMessage());
-        });
-
-        return errorsMap;
-    }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(UserNotFoundException.class)
