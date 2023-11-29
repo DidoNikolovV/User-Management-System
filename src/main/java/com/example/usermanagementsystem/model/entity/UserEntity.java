@@ -2,6 +2,9 @@ package com.example.usermanagementsystem.model.entity;
 
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+
 
 @Entity
 @Table(name = "users")

@@ -33,9 +33,16 @@ public class SecurityConfig {
         UserDetails admin = User
                 .withUsername("admin")
                 .password(passwordEncoder().encode("12345"))
+                .roles("ADMIN")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin);
+        UserDetails user = User
+                .withUsername("user")
+                .password(passwordEncoder().encode("12345"))
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(admin, user);
     }
 
     @Bean
@@ -61,12 +68,12 @@ public class SecurityConfig {
                                     "/swagger-ui/**",
                                     "/swagger-ui.html"
                             ).permitAll()
-                            .requestMatchers( "/api/users/**").permitAll()
-                            .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
-                            .requestMatchers("/api/users/edit/**").permitAll()
-                            .requestMatchers("/api/users/**").permitAll()
-                            .anyRequest().permitAll());
-          httpSecurity.httpBasic(Customizer.withDefaults())
+                            .requestMatchers(HttpMethod.GET, "/api/users").permitAll()
+                            .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.PUT,"/api/users/edit/**").hasRole("ADMIN")
+                            .requestMatchers(HttpMethod.DELETE, "/api/users/").hasRole("ADMIN")
+                            .anyRequest().authenticated())
+                  .httpBasic((Customizer.withDefaults()))
                   .csrf(csrf -> {
                       csrf.ignoringRequestMatchers("/api/**");
                   });

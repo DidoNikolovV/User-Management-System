@@ -79,9 +79,7 @@
             })
         }).then(res => res.json())
             .then(data => {
-                if(data.success) {
-                    window.location.href = "/users/" + data.id;
-                }
+                window.location.href = "/users/" + data.id;
             })
     }
 </script>

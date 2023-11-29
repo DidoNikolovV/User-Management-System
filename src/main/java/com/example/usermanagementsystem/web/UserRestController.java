@@ -128,6 +128,7 @@ public class UserRestController {
                     )
             }
     )
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = "application/json", produces = "application/json")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) throws UserAlreadyRegisteredException {
         UserEntity user = userService.createUser(userDTO);
@@ -167,7 +168,9 @@ public class UserRestController {
                     )
             }
     )
-    @PutMapping("/api/users/edit/{userId}")
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/edit/{userId}")
     public ResponseEntity<UserDTO> editUser(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO) throws UserNotFoundException {
         UserEntity updatedUser = userService.getUserById(userId);
 
@@ -201,6 +204,8 @@ public class UserRestController {
                     )
             }
     )
+
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{userId}")
     public ResponseEntity<UserDTO> deleteUser(@PathVariable("userId") Long userId) throws UserNotFoundException {
         UserEntity userEntity = userService.deleteUserById(userId);
