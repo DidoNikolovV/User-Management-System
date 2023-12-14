@@ -2,8 +2,9 @@ package com.example.usermanagementsystem.service;
 
 import com.example.usermanagementsystem.exception.UserAlreadyRegisteredException;
 import com.example.usermanagementsystem.exception.UserNotFoundException;
-import com.example.usermanagementsystem.model.dto.UserDTO;
+import com.example.usermanagementsystem.model.dto.UserCreationDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
+import com.example.usermanagementsystem.model.view.UserDisplayView;
 import com.example.usermanagementsystem.repository.UserRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,34 +19,38 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public UserEntity createUser(UserDTO userDTO) {
-        if(userRepository.findByEmail(userDTO.getEmail()).isPresent()) {
-            throw new UserAlreadyRegisteredException("User with " + userDTO.getEmail() + " already exists");
+    public UserDisplayView createUser(UserCreationDTO userCreationDTO) {
+        if(userRepository.findByEmail(userCreationDTO.getEmail()).isPresent()) {
+            throw new UserAlreadyRegisteredException("User with " + userCreationDTO.getEmail() + " already exists");
         }
 
-        if(userRepository.findByPhoneNumber(userDTO.getPhoneNumber()).isPresent()) {
-            throw new UserAlreadyRegisteredException("User with " + userDTO.getPhoneNumber() + " already exists");
+        if(userRepository.findByPhoneNumber(userCreationDTO.getPhoneNumber()).isPresent()) {
+            throw new UserAlreadyRegisteredException("User with " + userCreationDTO.getPhoneNumber() + " already exists");
         }
 
 
         UserEntity user = new UserEntity();
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-        user.setDateOfBirth(userDTO.getDateOfBirth());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setEmail(userDTO.getEmail());
+        user.setFirstName(userCreationDTO.getFirstName());
+        user.setLastName(userCreationDTO.getLastName());
+        user.setDateOfBirth(userCreationDTO.getDateOfBirth());
+        user.setPhoneNumber(userCreationDTO.getPhoneNumber());
+        user.setEmail(userCreationDTO.getEmail());
+
 
         userRepository.save(user);
-        return user;
+
+        UserDisplayView userDisplayView = new UserDisplayView(
+                user.getId(), user.getFirstName(), user.getLastName(), user.getDateOfBirth(), user.getPhoneNumber(), user.getEmail());
+        return userDisplayView;
     }
 
     public UserEntity getUserById(Long id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
     }
 
-    public Page<UserDTO> getAllUsers(Pageable pageable) {
+    public Page<UserDisplayView> getAllUsers(Pageable pageable) {
 
-        Page<UserDTO> users = userRepository.findAll(pageable).map(userEntity -> new UserDTO(
+        Page<UserDisplayView> users = userRepository.findAll(pageable).map(userEntity -> new UserDisplayView(
                 userEntity.getId(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),
@@ -57,8 +62,8 @@ public class UserService {
         return users;
     }
 
-    public Page<UserDTO> searchUsers(String searchParam, Pageable pageable) {
-        return userRepository.searchUsers(searchParam, pageable).map(this::mapAsUserDTO);
+    public Page<UserDisplayView> searchUsers(String searchParam, Pageable pageable) {
+        return userRepository.searchUsers(searchParam, pageable).map(this::mapAsUserDisplayView);
     }
 
 
@@ -68,16 +73,13 @@ public class UserService {
     }
 
 
-    public UserEntity deleteUserById(Long id)  {
+    public void deleteUserById(Long id)  {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found"));
         userRepository.deleteById(user.getId());
-
-        return user;
     }
 
-
-    private UserDTO mapAsUserDTO(UserEntity userEntity) {
-        return new UserDTO(
+    private UserDisplayView mapAsUserDisplayView(UserEntity userEntity) {
+        return new UserDisplayView(
                 userEntity.getId(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),

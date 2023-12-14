@@ -3,8 +3,10 @@ package com.example.usermanagementsystem.web;
 
 import com.example.usermanagementsystem.exception.UserAlreadyRegisteredException;
 import com.example.usermanagementsystem.exception.UserNotFoundException;
-import com.example.usermanagementsystem.model.dto.UserDTO;
+import com.example.usermanagementsystem.model.dto.UserCreationDTO;
+import com.example.usermanagementsystem.model.dto.UserDetailsDTO;
 import com.example.usermanagementsystem.model.entity.UserEntity;
+import com.example.usermanagementsystem.model.view.UserDisplayView;
 import com.example.usermanagementsystem.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -12,19 +14,13 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import jakarta.validation.Valid;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.SortDefault;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -56,7 +52,7 @@ public class UserRestController {
             }
     )
     @GetMapping
-    public ResponseEntity<List<UserDTO>> getUsers(
+    public ResponseEntity<List<UserDisplayView>> getUsers(
             @Parameter(description = "Search parameter")
             @RequestParam(required = false) String searchParam,
             @Parameter(description = "Sort parameter", example = "lastName,dateOfBirth")
@@ -65,7 +61,7 @@ public class UserRestController {
             @RequestParam(defaultValue = "3") int size,
             @Parameter(hidden = true)
                 @PageableDefault(size = 3, sort = {"lastName", "dateOfBirth"}) Pageable pageable) {
-        Page<UserDTO> users;
+        Page<UserDisplayView> users;
         pageable = PageRequest.of(0, size, Sort.by(sort.split(",")));
         if(searchParam != null && !searchParam.isEmpty()) {
             users = userService.searchUsers(searchParam, pageable);
@@ -96,11 +92,11 @@ public class UserRestController {
             }
     )
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDTO> getUser(
+    public ResponseEntity<UserDisplayView> getUser(
             @Parameter(description = "User Id", example = "4")
             @PathVariable("userId") Long userId) throws UserNotFoundException {
-        UserEntity userEntity = userService.getUserById(userId);
-        return ResponseEntity.ok(mapToUserDTO(userEntity));
+        UserEntity user = userService.getUserById(userId);
+        return ResponseEntity.ok(mapToUserDisplayView(user));
     }
 
 
@@ -130,12 +126,12 @@ public class UserRestController {
     )
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) throws UserAlreadyRegisteredException {
-        UserEntity user = userService.createUser(userDTO);
+    public ResponseEntity<UserDisplayView> createUser(@RequestBody UserCreationDTO userCreationDTO) throws UserAlreadyRegisteredException {
+        UserDisplayView userDisplayView = userService.createUser(userCreationDTO);
 
         return ResponseEntity.created(
-                URI.create("/users/" + user.getId())
-        ).body(mapToUserDTO(user));
+                URI.create("/users/" + userDisplayView.getId())
+        ).body(userDisplayView);
 
     }
 
@@ -171,18 +167,18 @@ public class UserRestController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/edit/{userId}")
-    public ResponseEntity<UserDTO> editUser(@PathVariable("userId") Long userId, @RequestBody UserDTO userDTO) throws UserNotFoundException {
+    public ResponseEntity<UserDisplayView> editUser(@PathVariable("userId") Long userId, @RequestBody UserDetailsDTO userDetailsDTO) throws UserNotFoundException {
         UserEntity updatedUser = userService.getUserById(userId);
 
-        updatedUser.setFirstName(userDTO.getFirstName());
-        updatedUser.setLastName(userDTO.getLastName());
-        updatedUser.setDateOfBirth(userDTO.getDateOfBirth());
-        updatedUser.setPhoneNumber(userDTO.getPhoneNumber());
-        updatedUser.setEmail(userDTO.getEmail());
+        updatedUser.setFirstName(userDetailsDTO.getFirstName());
+        updatedUser.setLastName(userDetailsDTO.getLastName());
+        updatedUser.setDateOfBirth(userDetailsDTO.getDateOfBirth());
+        updatedUser.setPhoneNumber(userDetailsDTO.getPhoneNumber());
+        updatedUser.setEmail(userDetailsDTO.getEmail());
 
         userService.updateUser(updatedUser);
 
-        return ResponseEntity.ok(mapToUserDTO(updatedUser));
+        return ResponseEntity.ok(mapToUserDisplayView(updatedUser));
 
     }
 
@@ -207,13 +203,13 @@ public class UserRestController {
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{userId}")
-    public ResponseEntity<UserDTO> deleteUser(@PathVariable("userId") Long userId) throws UserNotFoundException {
-        UserEntity userEntity = userService.deleteUserById(userId);
-        return ResponseEntity.ok(mapToUserDTO(userEntity));
+    public ResponseEntity<List<UserDisplayView>> deleteUser(@PathVariable("userId") Long userId) throws UserNotFoundException {
+        userService.deleteUserById(userId);
+        return ResponseEntity.ok().build();
     }
 
-    private UserDTO mapToUserDTO(UserEntity userEntity) {
-        return new UserDTO(
+    private UserDisplayView mapToUserDisplayView(UserEntity userEntity) {
+        return new UserDisplayView(
                 userEntity.getId(),
                 userEntity.getFirstName(),
                 userEntity.getLastName(),

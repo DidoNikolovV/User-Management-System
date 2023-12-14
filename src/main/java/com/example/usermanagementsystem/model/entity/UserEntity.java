@@ -2,6 +2,7 @@ package com.example.usermanagementsystem.model.entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
 import lombok.Data;
 
 
@@ -25,6 +26,7 @@ public class UserEntity {
     private String dateOfBirth;
 
     @Column(name = "phone_number", nullable = false, unique = true)
+    @Pattern(regexp = "^\\d{10}$", message= "Invalid mobile number entered")
     private String phoneNumber;
 
     @Column(nullable = false, unique = true)
